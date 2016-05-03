@@ -45,6 +45,19 @@ describe('NewRelicLogger', () => {
     });
   });
 
+  describe('global args', () => {
+    it('sends global args', () => {
+      spyOn(mockNewRelicLogger, 'send');
+      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      uut.registerGlobalArgs({
+        global1: 'global1-value'
+      });
+      uut.report('name', {inner: 123});
+      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('name', {inner: '123', global1: 'global1-value'});
+    });
+  });
+
   describe('overrideConsole', () => {
     const defaultLog = console.log;
     const defaultWarn = console.warn;

@@ -20,6 +20,13 @@ export function overrideConsole() {
     defaultError.apply(console, arguments);
   };
 }
+/**
+ * registers global arguments that will be sent with every event
+ * @param args
+ */
+export function registerGlobalArgs(args) {
+  globalArgs = args;
+}
 
 function sendConsole(type, args) {
   const argsStr = _.map(args, String).join(', ');
