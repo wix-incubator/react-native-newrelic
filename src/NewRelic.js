@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 
 const logger = NativeModules.RNNewRelic;
 
+let globalArgs = {};
+
 export function overrideConsole() {
   const defaultLog = console.log;
   const defaultWarn = console.warn;
