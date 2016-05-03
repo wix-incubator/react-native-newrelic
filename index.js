@@ -1,1 +1,1 @@
-module.exports = require('./lib/NewRelicLogger');
+module.exports = require('./lib/NewRelic');

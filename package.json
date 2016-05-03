@@ -1,13 +1,14 @@
 {
   "name": "react-native-newrelic",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "New Relic wrapper for React Native",
   "main": "index.js",
   "scripts": {
     "build": "BABEL_ENV='test' babel src -d lib",
     "lint": "eslint src test",
     "pretest": "npm run lint",
-    "test": "BABEL_ENV='test' node 'scripts/JasmineUnitRunner.js'"
+    "test": "BABEL_ENV='test' node 'scripts/JasmineUnitRunner.js'",
+    "xcode": "open ./ios/RNNewRelic.xcodeproj"
   },
   "peerDependencies": {
     "react-native": "*"

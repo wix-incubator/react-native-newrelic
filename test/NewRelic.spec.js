@@ -4,16 +4,16 @@ const proxyquire = require('proxyquire');
 const emptyFunction = () => {
   //
 };
-describe('NewRelicLogger', () => {
+describe('NewRelic', () => {
   let uut;
-  const mockNewRelicLogger = {};
+  const mockNewRelic = {};
 
   beforeEach(() => {
-    mockNewRelicLogger.send = emptyFunction;
-    uut = proxyquire.noCallThru().noPreserveCache()('./../src/NewRelicLogger', {
+    mockNewRelic.send = emptyFunction;
+    uut = proxyquire.noCallThru().noPreserveCache()('./../src/NewRelic', {
       'react-native': {
         NativeModules: {
-          NewRelicLogger: mockNewRelicLogger
+          NewRelic: mockNewRelic
         }
       }
     });
@@ -21,40 +21,40 @@ describe('NewRelicLogger', () => {
 
   describe('report', () => {
     it('sends name and args', () => {
-      spyOn(mockNewRelicLogger, 'send');
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      spyOn(mockNewRelic, 'send');
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       uut.report('name', {inner: 'val'});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('name', {inner: 'val'});
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('name', {inner: 'val'});
     });
 
     it('sends name as string', () => {
-      spyOn(mockNewRelicLogger, 'send');
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      spyOn(mockNewRelic, 'send');
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       uut.report(123, {inner: 'val'});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('123', {inner: 'val'});
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('123', {inner: 'val'});
     });
 
     it('sends args as string', () => {
-      spyOn(mockNewRelicLogger, 'send');
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      spyOn(mockNewRelic, 'send');
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       uut.report('name', {inner: 123});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('name', {inner: '123'});
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('name', {inner: '123'});
     });
   });
 
   describe('global args', () => {
     it('sends global args', () => {
-      spyOn(mockNewRelicLogger, 'send');
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      spyOn(mockNewRelic, 'send');
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       uut.registerGlobalArgs({
         global1: 'global1-value'
       });
       uut.report('name', {inner: 123});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('name', {inner: '123', global1: 'global1-value'});
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('name', {inner: '123', global1: 'global1-value'});
     });
   });
 
@@ -93,32 +93,32 @@ describe('NewRelicLogger', () => {
     });
 
     it('sends console.log to logger', () => {
-      spyOn(mockNewRelicLogger, 'send');
+      spyOn(mockNewRelic, 'send');
       uut.overrideConsole();
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
     });
 
     it('sends console.warn to logger', () => {
-      spyOn(mockNewRelicLogger, 'send');
+      spyOn(mockNewRelic, 'send');
       uut.overrideConsole();
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.warn('hello');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
     });
 
     it('sends console.error to logger', () => {
-      spyOn(mockNewRelicLogger, 'send');
+      spyOn(mockNewRelic, 'send');
       uut.overrideConsole();
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.error('hello');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
     });
 
     it('sends consoles to logger with name JSConsole', () => {
       let called = null;
-      mockNewRelicLogger.send = (name) => {
+      mockNewRelic.send = (name) => {
         called = name;
       };
       uut.overrideConsole();
@@ -132,24 +132,24 @@ describe('NewRelicLogger', () => {
     });
 
     it('send consoles to logger with argument and consoleType', () => {
-      spyOn(mockNewRelicLogger, 'send');
+      spyOn(mockNewRelic, 'send');
       uut.overrideConsole();
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello1');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello1'});
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello1'});
       console.warn('hello2');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'warn', args: 'hello2'});
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'warn', args: 'hello2'});
       console.error('hello3');
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'error', args: 'hello3'});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledTimes(3);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'error', args: 'hello3'});
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(3);
     });
 
     it('send consoles to logger with argument seperated by comma and cast to string', () => {
-      spyOn(mockNewRelicLogger, 'send');
+      spyOn(mockNewRelic, 'send');
       uut.overrideConsole();
-      expect(mockNewRelicLogger.send).not.toHaveBeenCalled();
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello', 'world', 123, null, {inner: 1});
-      expect(mockNewRelicLogger.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello, world, 123, null, [object Object]'});
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello, world, 123, null, [object Object]'});
     });
   });
 });
