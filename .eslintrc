@@ -379,7 +379,7 @@
     "prefer-arrow-callback": 0,
     "prefer-const": "error",
     "prefer-reflect": 0,
-    "prefer-rest-params": "error",
+    "prefer-rest-params": 0,
     "prefer-spread": "error",
     "prefer-template": 0,
     "require-yield": 0,
