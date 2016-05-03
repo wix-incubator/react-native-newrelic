@@ -1,7 +1,7 @@
 import {NativeModules} from 'react-native';
 import * as _ from 'lodash';
 
-const logger = NativeModules.NewRelic;
+const logger = NativeModules.RNNewRelic;
 
 export function overrideConsole() {
   const defaultLog = console.log;

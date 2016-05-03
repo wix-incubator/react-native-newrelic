@@ -1,5 +1,5 @@
 //
-//  NewRelic.h
+//  RNNewRelic.h
 //  RNNewRelic
 //
 //  Created by Daniel Zlotin on 26/04/2016.
@@ -10,6 +10,6 @@
 #import "RCTBridgeModule.h"
 #import <NewRelicAgent/NewRelic.h>
 
-@interface NewRelic : NSObject <RCTBridgeModule>
+@interface RNNewRelic : NSObject <RCTBridgeModule>
 
 @end

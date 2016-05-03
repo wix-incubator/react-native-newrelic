@@ -1,14 +1,14 @@
 //
-//  NewRelic.m
+//  RNNewRelic.m
 //  RNNewRelic
 //
 //  Created by Daniel Zlotin on 26/04/2016.
 //  Copyright © 2016 Wix.com. All rights reserved.
 //
 
-#import "NewRelic.h"
+#import "RNNewRelic.h"
 
-@implementation NewRelic
+@implementation RNNewRelic
 
 RCT_EXPORT_MODULE();
 
