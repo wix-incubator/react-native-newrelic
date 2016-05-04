@@ -42,7 +42,7 @@ export function report(eventName, args) {
 function send(name, args) {
   const nameStr = String(name);
   const argsStr = {};
-  _.forEach(args, (value, key) => {
+  _.forEach({...args, ...globalArgs}, (value, key) => {
     argsStr[String(key)] = String(value);
   });
   logger.send(nameStr, argsStr);

@@ -13,7 +13,7 @@ describe('NewRelic', () => {
     uut = proxyquire.noCallThru().noPreserveCache()('./../src/NewRelic', {
       'react-native': {
         NativeModules: {
-          NewRelic: mockNewRelic
+          RNNewRelic: mockNewRelic
         }
       }
     });
