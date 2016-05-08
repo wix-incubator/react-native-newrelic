@@ -16,4 +16,9 @@ RCT_EXPORT_METHOD(send: (NSString*)name :(NSDictionary*)args){
     [NewRelicAgent recordEvent:name attributes:args];
 }
 
+// Logs a message to the native console
+RCT_EXPORT_METHOD(nativeLog:(NSString *)msg){
+  NSLog(@"%@", msg);
+}
+
 @end

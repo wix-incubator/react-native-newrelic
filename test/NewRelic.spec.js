@@ -16,6 +16,31 @@ describe('NewRelic', () => {
           RNNewRelic: mockNewRelic
         }
       }
+    }).default;
+  });
+
+  describe('init', () => {
+    it('inits everything that is enabled', () => {
+      uut._overrideConsole = jasmine.createSpy('overrideConsole');
+      uut._reportUncaughtExceptions = jasmine.createSpy('reportUncaughtExceptions');
+
+      uut.init({
+        overrideConsole: true,
+        reportUncaughtExceptions: true
+      });
+
+      expect(uut._overrideConsole).toHaveBeenCalled();
+      expect(uut._reportUncaughtExceptions).toHaveBeenCalled();
+    });
+
+    it('does not init anything that is disabled', () => {
+      uut._overrideConsole = jasmine.createSpy('overrideConsole');
+
+      uut.init({
+        overrideConsole: false
+      });
+
+      expect(uut._overrideConsole).not.toHaveBeenCalled();
     });
   });
 
@@ -58,6 +83,27 @@ describe('NewRelic', () => {
     });
   });
 
+  describe('uncaught exception', () => {
+    it('reports uncaught exceptions', () => {
+      spyOn(mockNewRelic, 'send');
+      const originalErrorHandler = jasmine.createSpy('errorHandlerSpy');
+      const errorUtils = {
+        _globalHandler: originalErrorHandler
+      };
+      const error = new Error('some-exception');
+      
+      uut._reportUncaughtExceptions(errorUtils);
+      errorUtils._globalHandler(error);
+
+      expect(originalErrorHandler).toHaveBeenCalledWith(error);
+      expect(originalErrorHandler).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSUncaughtException', {
+        error: String(error),
+        stack: error.stack
+      });
+    });
+  });
+
   describe('overrideConsole', () => {
     const defaultLog = console.log;
     const defaultWarn = console.warn;
@@ -76,25 +122,25 @@ describe('NewRelic', () => {
 
     it('overrides default console.log', () => {
       expect(console.error).toBe(emptyFunction);
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(console.log).not.toBe(emptyFunction);
     });
 
     it('overrides default console.warn', () => {
       expect(console.error).toBe(emptyFunction);
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(console.warn).not.toBe(emptyFunction);
     });
 
     it('overrides default console.error', () => {
       expect(console.error).toBe(emptyFunction);
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(console.error).not.toBe(emptyFunction);
     });
 
     it('sends console.log to logger', () => {
       spyOn(mockNewRelic, 'send');
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello');
       expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
@@ -102,7 +148,7 @@ describe('NewRelic', () => {
 
     it('sends console.warn to logger', () => {
       spyOn(mockNewRelic, 'send');
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.warn('hello');
       expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
@@ -110,7 +156,7 @@ describe('NewRelic', () => {
 
     it('sends console.error to logger', () => {
       spyOn(mockNewRelic, 'send');
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.error('hello');
       expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
@@ -121,7 +167,7 @@ describe('NewRelic', () => {
       mockNewRelic.send = (name) => {
         called = name;
       };
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(called).toBeNull();
       console.log('hello');
       expect(called).toEqual('JSConsole');
@@ -133,7 +179,7 @@ describe('NewRelic', () => {
 
     it('send consoles to logger with argument and consoleType', () => {
       spyOn(mockNewRelic, 'send');
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello1');
       expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello1'});
@@ -146,7 +192,7 @@ describe('NewRelic', () => {
 
     it('send consoles to logger with argument seperated by comma and cast to string', () => {
       spyOn(mockNewRelic, 'send');
-      uut.overrideConsole();
+      uut._overrideConsole();
       expect(mockNewRelic.send).not.toHaveBeenCalled();
       console.log('hello', 'world', 123, null, {inner: 1});
       expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'log', args: 'hello, world, 123, null, [object Object]'});
