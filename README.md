@@ -64,10 +64,10 @@ Add the following to your app root (e.g. `app.ios.js`):
 import {default as newRelic} from 'react-native-newrelic';
 newRelic.init({
   overrideConsole: true,
-  reportUncaughtExceptions: true
-});
-newRelic.registerGlobalArgs({
-  fullVersion: deviceInfo.getReadableVersion()
+  reportUncaughtExceptions: true,
+    globalAttributes: {
+      'this-string': 'will be sent with every event that is being reported'
+    }
 });
 ```
 

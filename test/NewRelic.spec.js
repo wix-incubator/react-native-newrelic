@@ -10,6 +10,9 @@ describe('NewRelic', () => {
 
   beforeEach(() => {
     mockNewRelic.send = emptyFunction;
+    mockNewRelic.setAttribute = emptyFunction;
+    mockNewRelic.nativeLog = emptyFunction;
+
     uut = proxyquire.noCallThru().noPreserveCache()('./../src/NewRelic', {
       'react-native': {
         NativeModules: {
@@ -70,16 +73,19 @@ describe('NewRelic', () => {
     });
   });
 
-  describe('global args', () => {
-    it('sends global args', () => {
-      spyOn(mockNewRelic, 'send');
-      expect(mockNewRelic.send).not.toHaveBeenCalled();
-      uut.registerGlobalArgs({
-        global1: 'global1-value'
+  describe('attributes', () => {
+    it('set a global attribute', () => {
+      spyOn(mockNewRelic, 'setAttribute');
+      expect(mockNewRelic.setAttribute).not.toHaveBeenCalled();
+      uut.init({
+        globalAttributes: {
+          always: 'send-this-attribute'
+        }
       });
+      
       uut.report('name', {inner: 123});
-      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
-      expect(mockNewRelic.send).toHaveBeenCalledWith('name', {inner: '123', global1: 'global1-value'});
+      expect(mockNewRelic.setAttribute).toHaveBeenCalledTimes(1);
+      expect(mockNewRelic.setAttribute).toHaveBeenCalledWith('always', 'send-this-attribute');
     });
   });
 
@@ -190,6 +196,20 @@ describe('NewRelic', () => {
       expect(mockNewRelic.send).toHaveBeenCalledTimes(3);
     });
 
+    it('send consoles error console to native log', () => {
+      spyOn(mockNewRelic, 'send');
+      spyOn(mockNewRelic, 'nativeLog');
+
+      expect(mockNewRelic.send).not.toHaveBeenCalled();
+
+      uut._overrideConsole();
+      console.error('hello3');
+
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JSConsole', {consoleType: 'error', args: 'hello3'});
+      expect(mockNewRelic.nativeLog).toHaveBeenCalledWith('[JSConsole:Error] hello3');
+      expect(mockNewRelic.send).toHaveBeenCalledTimes(1);
+    });
+    
     it('send consoles to logger with argument seperated by comma and cast to string', () => {
       spyOn(mockNewRelic, 'send');
       uut._overrideConsole();

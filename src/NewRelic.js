@@ -2,9 +2,7 @@
 import {NativeModules} from 'react-native';
 import * as _ from 'lodash';
 
-const logger = NativeModules.RNNewRelic;
-
-let globalArgs = {};
+const RNNewRelic = NativeModules.RNNewRelic;
 
 class NewRelic {
 
@@ -14,6 +12,9 @@ class NewRelic {
     }
     if (config.reportUncaughtExceptions) {
       this._reportUncaughtExceptions();
+    }
+    if (config.globalAttributes) {
+      this.setGlobalAttributes(config.globalAttributes);
     }
   }
 
@@ -46,29 +47,43 @@ class NewRelic {
   }
 
   /**
-   * registers global arguments that will be sent with every event
+   * registers global attributes that will be sent with every event
    * @param args
    */
-  registerGlobalArgs(args) {
-    globalArgs = {...globalArgs, ...args};
+  setGlobalAttributes(args) {
+    debugger;
+    _.forEach(args, (value, key) => {
+      debugger;
+      RNNewRelic.setAttribute(String(key), String(value));
+    });
   }
 
   sendConsole(type, args) {
     const argsStr = _.map(args, String).join(', ');
     this.send('JSConsole', {consoleType: type, args: argsStr});
+    if (type === 'error') {
+      this.nativeLog('[JSConsole:Error] ' + argsStr);
+    }
   }
 
   report(eventName, args) {
     this.send(eventName, args);
   }
 
+  /*
+   logs a message to the native console (useful when running in release mode)
+  */
+  nativeLog(log) {
+    RNNewRelic.nativeLog(log);
+  }
+
   send(name, args) {
     const nameStr = String(name);
     const argsStr = {};
-    _.forEach({...args, ...globalArgs}, (value, key) => {
+    _.forEach(args, (value, key) => {
       argsStr[String(key)] = String(value);
     });
-    logger.send(nameStr, argsStr);
+    RNNewRelic.send(nameStr, argsStr);
   }
 
 }
