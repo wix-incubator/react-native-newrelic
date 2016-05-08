@@ -2,6 +2,12 @@
 
 New Relic event reporting for react native.
 
+## Features
+* `overrideConsole` will send all console.log, warn and errors to New Relic.
+* `reportUncaughtExceptions` will send uncaught Javascript exceptions to New Relic.
+
+More to come!
+
 ## Installation
 
 ### 1.Install react-native-newrelic:
@@ -45,7 +51,7 @@ And add the following line to the top of your didFinishLaunchingWithOptions func
   [self setupNewRelic];
 ```
 
-### 5. In your Add a prefix header to your iOS project
+### 5. Add a prefix header to your iOS project
 
 Add a `PrefixHeader.pch` file as explained [here](https://docs.newrelic.com/docs/mobile-monitoring/mobile-monitoring-installation/ios/adding-prefix-header-ios-project)
 Your file should look like this:
@@ -59,7 +65,7 @@ Your file should look like this:
 
 ## Configuration
 
-Add the following to your app root (e.g. `app.ios.js`):
+Add the following to your app root (e.g. `app.ios.js` ):
 ```
 import {default as newRelic} from 'react-native-newrelic';
 newRelic.init({
