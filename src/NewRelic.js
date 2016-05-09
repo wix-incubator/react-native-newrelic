@@ -51,9 +51,7 @@ class NewRelic {
    * @param args
    */
   setGlobalAttributes(args) {
-    debugger;
     _.forEach(args, (value, key) => {
-      debugger;
       RNNewRelic.setAttribute(String(key), String(value));
     });
   }
