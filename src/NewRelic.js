@@ -1,4 +1,4 @@
-/* global ErrorUtils */
+/* globals ErrorUtils, __DEV__ */
 import {NativeModules} from 'react-native';
 import * as _ from 'lodash';
 
@@ -51,7 +51,7 @@ class NewRelic {
 
   _reportRejectedPromises() {
     const rejectionTracking = require('promise/setimmediate/rejection-tracking');
-    if (!global.__DEV__) {
+    if (!__DEV__) {
       rejectionTracking.enable({
         allRejections: true,
         onUnhandled: (id, error) => {

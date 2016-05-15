@@ -1,6 +1,6 @@
 {
   "name": "react-native-newrelic",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "New Relic wrapper for React Native",
   "main": "index.js",
   "scripts": {
