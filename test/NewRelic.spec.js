@@ -121,7 +121,7 @@ describe('NewRelic', () => {
 
   describe('rejected promises', () => {
     it('reports rejected promises', () => {
-      globals.__DEV__ = false;
+      global.__DEV__ = false;
       uut._reportRejectedPromises();
 
       expect(enablePromiseSpy).toHaveBeenCalledWith({
