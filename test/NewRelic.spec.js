@@ -7,6 +7,7 @@ const emptyFunction = () => {
 describe('NewRelic', () => {
   let uut;
   const mockNewRelic = {};
+  const enablePromiseSpy = jasmine.createSpy('enablePromise');
 
   beforeEach(() => {
     mockNewRelic.send = emptyFunction;
@@ -18,6 +19,11 @@ describe('NewRelic', () => {
         NativeModules: {
           RNNewRelic: mockNewRelic
         }
+      },
+      'Promise': {
+      },
+      'promise/setimmediate/rejection-tracking': {
+        enable: enablePromiseSpy
       }
     }).default;
   });
@@ -26,14 +32,17 @@ describe('NewRelic', () => {
     it('inits everything that is enabled', () => {
       uut._overrideConsole = jasmine.createSpy('overrideConsole');
       uut._reportUncaughtExceptions = jasmine.createSpy('reportUncaughtExceptions');
+      uut._reportRejectedPromises = jasmine.createSpy('reportRejectedPromises');
 
       uut.init({
         overrideConsole: true,
-        reportUncaughtExceptions: true
+        reportUncaughtExceptions: true,
+        reportRejectedPromises: true
       });
 
       expect(uut._overrideConsole).toHaveBeenCalled();
       expect(uut._reportUncaughtExceptions).toHaveBeenCalled();
+      expect(uut._reportRejectedPromises).toHaveBeenCalled();
     });
 
     it('does not init anything that is disabled', () => {
@@ -103,9 +112,19 @@ describe('NewRelic', () => {
 
       expect(originalErrorHandler).toHaveBeenCalledWith(error);
       expect(originalErrorHandler).toHaveBeenCalledTimes(1);
-      expect(mockNewRelic.send).toHaveBeenCalledWith('JSUncaughtException', {
+      expect(mockNewRelic.send).toHaveBeenCalledWith('JS:UncaughtException', {
         error: String(error),
         stack: error.stack
+      });
+    });
+  });
+
+  describe('rejected promises', () => {
+    it('reports rejected promises', () => {
+      uut._reportRejectedPromises();
+
+      expect(enablePromiseSpy).toHaveBeenCalledWith({
+        allRejections: true, onUnhandled: jasmine.anything(), onHandled: jasmine.anything()
       });
     });
   });

@@ -13,6 +13,9 @@ class NewRelic {
     if (config.reportUncaughtExceptions) {
       this._reportUncaughtExceptions();
     }
+    if (config.reportRejectedPromises) {
+      this._reportRejectedPromises();
+    }
     if (config.globalAttributes) {
       this.setGlobalAttributes(config.globalAttributes);
     }
@@ -41,9 +44,25 @@ class NewRelic {
   _reportUncaughtExceptions(errorUtils = global.ErrorUtils) {
     const defaultHandler = errorUtils._globalHandler;
     errorUtils._globalHandler = (error) => {
-      this.send('JSUncaughtException', {error, stack: error && error.stack});
+      this.send('JS:UncaughtException', {error, stack: error && error.stack});
       defaultHandler(error);
     };
+  }
+
+  _reportRejectedPromises() {
+    const rejectionTracking = require('promise/setimmediate/rejection-tracking');
+    if (!global.__DEV__) {
+      rejectionTracking.enable({
+        allRejections: true,
+        onUnhandled: (id, error) => {
+          this.send('JS:UnhandledRejectedPromise', {error});
+          this.nativeLog('[UnhandledRejectedPromise] ' + error);
+        },
+        onHandled: () => {
+          //
+        }
+      });
+    }
   }
 
   /**
