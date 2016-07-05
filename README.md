@@ -99,10 +99,24 @@ include ':react-native-newrelic'
 project(':react-native-newrelic').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-newrelic/android')
 
 ```
+In your project level `build.gradle`:
+
+```
+dependencies {
+	...
+	classpath "com.newrelic.agent.android:agent-gradle-plugin:5.6.+"
+	...
+ }
+
+```
+
 
 In your app level `build.gradle`:
 
 ``` gradle
+apply plugin: 'newrelic'
+
+
 dependencies {
 	...
 	compile project(":react-native-newrelic")

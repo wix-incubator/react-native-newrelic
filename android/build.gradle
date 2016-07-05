@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'newrelic'
 
 buildscript {
     repositories {
@@ -9,9 +8,6 @@ buildscript {
             // All of React Native (JS, Android binaries) is installed from npm
             url "$rootDir/node_modules/react-native/android"
         }
-    }
-    dependencies {
-        classpath 'com.newrelic.agent.android:agent-gradle-plugin:5.6.+'
     }
 }
 
