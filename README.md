@@ -104,7 +104,7 @@ In your project level `build.gradle`:
 ```
 dependencies {
 	...
-	classpath "com.newrelic.agent.android:agent-gradle-plugin:5.6.+"
+	classpath "com.newrelic.agent.android:agent-gradle-plugin:5.11.+"
 	...
  }
 

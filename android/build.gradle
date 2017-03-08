@@ -29,6 +29,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.newrelic.agent.android:android-agent:5.6.+'
+    compile 'com.newrelic.agent.android:android-agent:5.11.+'
     compile 'com.facebook.react:react-native:+' //from node_modules
 }
