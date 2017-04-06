@@ -16,17 +16,4 @@ jrunner.loadConfig(
   }
 );
 
-jrunner.configureDefaultReporter({
-  print: () => {
-    // do nothing
-  }
-});
-if (process.env.IS_BUILD_AGENT) {
-  const JasmineReporters = require('jasmine-reporters');
-  jrunner.addReporter(new JasmineReporters.TeamCityReporter());
-} else {
-  const SpecReporter = require('jasmine-spec-reporter');
-  jrunner.addReporter(new SpecReporter());
-}
-
 jrunner.execute();

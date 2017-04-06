@@ -405,14 +405,6 @@
     ],
     "react/no-danger": "error",
     "react/no-deprecated": "error",
-    "react/no-did-mount-set-state": [
-      "error",
-      "allow-in-func"
-    ],
-    "react/no-did-update-set-state": [
-      "error",
-      "allow-in-func"
-    ],
     "react/no-direct-mutation-state": "error",
     "react/no-is-mounted": "error",
     "react/no-multi-comp": "error",
@@ -443,7 +435,6 @@
       }
     ],
     "react/sort-prop-types": 0,
-    "react/wrap-multilines": "error",
     "react/jsx-boolean-value": [
       "error",
       "always"
@@ -500,10 +491,6 @@
     /*
      *                              babel plugin
      */
-    "babel/generator-star-spacing": [
-      "error",
-      "after"
-    ],
     "babel/new-cap": [
       "error",
       {
@@ -512,19 +499,11 @@
         ]
       }
     ],
-    "babel/array-bracket-spacing": [
-      "error",
-      "never"
-    ],
     "babel/object-curly-spacing": [
       "error",
       "never"
     ],
     "babel/object-shorthand": 0,
-    "babel/arrow-parens": [
-      "error",
-      "always"
-    ],
     "babel/no-await-in-loop": 0
   }
 }
