@@ -30,7 +30,7 @@ In the project navigator:
 - Go to node_modules/react-native-newrelic
 - Add the .xcodeproj file
 In the project navigator, select your project.
-- Add the libRNDNewRelic.a to your project's Build Phases ➜ Link Binary With Libraries
+- Add the libRNNewRelic.a to your project's Build Phases ➜ Link Binary With Libraries
 - Click .xcodeproj file you added before in the project navigator and go the Build Settings tab. Make sure 'All' is toggled on (instead of 'Basic').
 
 #### 3. In your AppDelegate.m
