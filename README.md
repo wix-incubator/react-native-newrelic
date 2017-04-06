@@ -2,6 +2,8 @@
 
 New Relic event reporting for react native.
 
+> also check out https://github.com/wix/sentry-monitor
+
 ## Features
 * `overrideConsole` will send all console.log, warn and errors to New Relic.
 * `reportUncaughtExceptions` will send uncaught Javascript exceptions to New Relic.
