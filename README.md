@@ -73,12 +73,22 @@ Your file should look like this:
 
 **[This link](https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile-android/install-configure/installing-android-apps-gradle-android-studio) describes how to add the original NewRelic agent to your project. This guide only requires a part of the original steps (some of the steps are already integrated in `react-native-newrelic`:**
 
-Extend `Application.java` and override the following method:
+In `MainApplication.java` import Newrelic and override the following method:
 
 ``` java
+import com.newrelic.agent.android.NewRelic;
+
+public class MainApplication extends Application implements ReactApplication {
+
+...
+
 public void onCreate() {
 	super.onCreate();
 	NewRelic.withApplicationToken("yourApplicationToken").start(this);
+}
+
+...
+
 }
 ```
 
@@ -127,7 +137,7 @@ dependencies {
 }
 ```
 
-Add `new RNNewRelicPackage()` to your list of packages in `getPackages()` in `MainActivity.java` :
+Add `new RNNewRelicPackage()` to your list of packages in `getPackages()` in `MainApplication.java` :
 
 ``` java
 @Override
