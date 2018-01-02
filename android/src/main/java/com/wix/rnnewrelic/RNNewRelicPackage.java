@@ -10,9 +10,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by rotemm on 29/06/2016.
- */
 public class RNNewRelicPackage implements ReactPackage {
 
     @Override
@@ -20,7 +17,7 @@ public class RNNewRelicPackage implements ReactPackage {
         return Arrays.<NativeModule>asList(new RNNewRelic(reactContext));
     }
 
-    @Override
+    // Deprecated in RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
