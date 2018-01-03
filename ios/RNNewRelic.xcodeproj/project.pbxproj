@@ -219,6 +219,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../ios/Pods/**",
+					"$(SRCROOT)/../../../ios/NewRelicAgent.framework/Versions/A/Headers/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
@@ -236,6 +237,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
 					"$(SRCROOT)/../../../ios/Pods/**",
+					"$(SRCROOT)/../../../ios/NewRelicAgent.framework/Versions/A/Headers/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
