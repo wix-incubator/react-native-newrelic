@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 const RNNewRelic = NativeModules.RNNewRelic;
 
 class NewRelic {
-
   init(config) {
     if (config.overrideConsole) {
       this._overrideConsole();
@@ -102,7 +101,6 @@ class NewRelic {
     });
     RNNewRelic.send(nameStr, argsStr);
   }
-
 }
 
 export default new NewRelic();
