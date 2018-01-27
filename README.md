@@ -140,6 +140,8 @@ dependencies {
 Add `new RNNewRelicPackage()` to your list of packages in `getPackages()` in `MainApplication.java` :
 
 ``` java
+import com.wix.rnnewrelic.RNNewRelicPackage;
+
 @Override
 public List<ReactPackage> getPackages() {
   return Arrays.<ReactPackage>asList(... new RNNewRelicPackage());
