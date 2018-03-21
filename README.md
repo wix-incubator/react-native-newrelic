@@ -18,10 +18,15 @@ More to come!
 npm install react-native-newrelic --save
 ```
 ## iOS 
-#### 1. Install New RelicAgent in your project as a pod
+#### 1. Install New RelicAgent in your project
+##### Option 1 (Using Cocoapods):
 In the Podfile for your project, add the following line:
 `pod 'NewRelicAgent'`
 Make sure Xcode is closed and run: `pod install`
+
+or
+
+##### Option 2 (Link it [manually](https://docs.newrelic.com/docs/mobile-monitoring/new-relic-mobile-ios/installation/ios-manual-installation#configuration))
 
 #### 2. Add the project to Xcode
 In the project navigator:
