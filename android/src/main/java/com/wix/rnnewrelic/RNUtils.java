@@ -1,8 +1,8 @@
 package com.wix.rnnewrelic;
 
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.facebook.react.bridge.ReadableNativeArray;
-import com.facebook.react.bridge.ReadableNativeMap;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ public class RNUtils {
      * @param readableNativeMap
      * @return
      */
-    public static HashMap<String, Object> toHashMap(ReadableNativeMap readableNativeMap) {
+    public static HashMap<String, Object> toHashMap(ReadableMap readableNativeMap) {
         ReadableMapKeySetIterator iterator = readableNativeMap.keySetIterator();
         HashMap<String, Object> hashMap = new HashMap<>();
 
@@ -54,7 +54,7 @@ public class RNUtils {
      * @param readableNativeArray
      * @return
      */
-    public static ArrayList<Object> toArrayList(ReadableNativeArray readableNativeArray) {
+    public static ArrayList<Object> toArrayList(ReadableArray readableNativeArray) {
         ArrayList<Object> arrayList = new ArrayList<>();
 
         for (int i = 0; i < readableNativeArray.size(); i++) {

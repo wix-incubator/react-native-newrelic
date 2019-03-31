@@ -6,7 +6,6 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.ReadableNativeMap;
 import com.newrelic.agent.android.NewRelic;
 
 /**
@@ -20,7 +19,7 @@ public class RNNewRelic extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void send(String name, ReadableMap eventAttributes) {
-        NewRelic.recordCustomEvent(name ,RNUtils.toHashMap((ReadableNativeMap) eventAttributes));
+        NewRelic.recordCustomEvent(name ,RNUtils.toHashMap(eventAttributes));
     }
 
     @ReactMethod
