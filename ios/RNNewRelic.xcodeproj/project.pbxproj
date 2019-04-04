@@ -105,6 +105,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7B34242E1CCF990C00FEBAEC;
@@ -218,7 +219,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
-					"$(SRCROOT)/../../../ios/Pods/**",
+					"$(SRCROOT)/../../../ios/Pods/NewRelicAgent/**",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";
@@ -235,7 +237,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../react-native/React/**",
-					"$(SRCROOT)/../../../ios/Pods/**",
+					"$(SRCROOT)/../../../ios/Pods/NewRelicAgent/**",
+					"${SRCROOT}/../../../ios/Pods/Headers/Public/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "";

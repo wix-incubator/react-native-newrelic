@@ -211,6 +211,8 @@ project.xcworkspace
 android/.idea
 android/.gradle
 android/local.properties
+android/.project
+android/.settings
 
 # node.js
 #
