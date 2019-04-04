@@ -1,5 +1,5 @@
 {
-  "name": "react-native-newrelic",
+  "name": "@liftango/react-native-newrelic",
   "version": "1.1.1",
   "description": "New Relic wrapper for React Native",
   "main": "index.js",
