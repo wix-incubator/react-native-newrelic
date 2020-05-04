@@ -8,13 +8,16 @@
     "lint": "eslint src test",
     "pretest": "npm run lint",
     "test": "BABEL_ENV='test' node 'scripts/JasmineUnitRunner.js'",
-    "xcode": "open ./ios/RNNewRelic.xcodeproj"
+    "xcode": "open ./ios/RNNewRelic.xcodeproj",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "peerDependencies": {
     "react-native": "*"
   },
   "dependencies": {
-    "lodash": "^4.11.1"
+    "lodash": "^4.11.1",
+    "snyk": "^1.317.0"
   },
   "devDependencies": {
     "app-root-path": "latest",
@@ -71,5 +74,6 @@
         "sourceMaps": false
       }
     }
-  }
+  },
+  "snyk": true
 }
